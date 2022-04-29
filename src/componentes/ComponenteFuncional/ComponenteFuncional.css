@@ -1,0 +1,9 @@
+.red {
+    color: red;
+    text-decoration: underline;
+}
+
+.black {
+    color: black;
+    font-weight: bold;
+}
