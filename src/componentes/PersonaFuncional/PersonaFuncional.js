@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 const PersonaFuncional = ({nombre, apellido, lugar}) => {
 
@@ -6,9 +6,24 @@ const PersonaFuncional = ({nombre, apellido, lugar}) => {
     //     edoCivil: "Soltero",
     //     edad: 30
     // })
-    const [edoCivil, setEdoCivil] = useState("Soltero");
+    const initialValueEdoCivil = "Soltero";
+    const [edoCivil, setEdoCivil] = useState(initialValueEdoCivil);
 
     const [numeros, setNumeros] = useState([1, 2, 3, 4]);
+
+    useEffect(() => {
+        //CONSULTA API
+        console.log("Use effect edoCivil")
+    },
+    [edoCivil]
+    )
+
+    useEffect(() => {
+        //CONSULTA API
+        console.log("Use effect numeros")
+    },
+    [numeros]
+    )
 
     const cambiarEdoCivil = () => {
         // if(state.edoCivil === "Soltero"){
@@ -23,6 +38,10 @@ const PersonaFuncional = ({nombre, apellido, lugar}) => {
         }
     }
 
+    const cambiarNumeros = () => {
+        setNumeros([3, 4, 5]);
+    }
+
     return (
         <div className="card">
             <h4>Componente Funcional</h4>
@@ -35,7 +54,7 @@ const PersonaFuncional = ({nombre, apellido, lugar}) => {
 
             }
             <button className="btn btn-warning" onClick={cambiarEdoCivil}>Botón Persona</button>
-            <button className="btn btn-danger">Botón Persona</button>
+            <button className="btn btn-danger" onClick={cambiarNumeros}>Botón Numeros</button>
         </div>
     )
 }

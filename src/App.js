@@ -1,4 +1,5 @@
 import React from "react";
+import ComponenteAPI from "./componentes/ComponenteAPI/ComponenteAPI";
 import ComponenteFuncional from "./componentes/ComponenteFuncional/ComponenteFuncional";
 import Formulario from "./componentes/Formulario/Formulario";
 import OtroComponente from "./componentes/OtroComponente/OtroComponente";
@@ -60,6 +61,7 @@ class App extends React.Component {
         </OtroComponente>
         <button className="btn btn-success" onClick={() => alert("Hiciste click!")}>Haz click aquí</button>
         <ComponenteFuncional num={10} aumento={1} />
+        <ComponenteAPI />
       </div>
     );
   }
