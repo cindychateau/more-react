@@ -1,10 +1,13 @@
 import React from "react";
 import ComponenteAPI from "./componentes/ComponenteAPI/ComponenteAPI";
 import ComponenteFuncional from "./componentes/ComponenteFuncional/ComponenteFuncional";
+import ComponentePersonas from "./componentes/ComponentePersonas/ComponentePersonas";
 import Formulario from "./componentes/Formulario/Formulario";
 import OtroComponente from "./componentes/OtroComponente/OtroComponente";
 import Persona from "./componentes/Persona/Persona";
 import PersonaFuncional from "./componentes/PersonaFuncional/PersonaFuncional";
+
+import {BrowserRouter, Route, Switch, Link} from 'react-router-dom';
 
 class App extends React.Component {
 
@@ -37,31 +40,42 @@ class App extends React.Component {
   render() {
     return (
       <div className="container">
-        <Formulario />
-        <h1>Componente de Clase</h1>
-
-        {
-
-          this.state.personas.map( persona => {
-            return (
-              <Persona nombre={persona.nombre} apellido={persona.apellido} lugar={persona.lugar} />
-            )
-          })
-
-        }
-
-        <PersonaFuncional nombre="Cynthia" apellido="Castillo" lugar="Monterrey" />
-        <OtroComponente>
-          <ul>
-            <li>Esta es una lista del elemento hijo</li>
-          </ul>
-          <p>
-            Este es otro elemento hijo
-          </p>
-        </OtroComponente>
-        <button className="btn btn-success" onClick={() => alert("Hiciste click!")}>Haz click aquí</button>
-        <ComponenteFuncional num={10} aumento={1} />
-        <ComponenteAPI />
+        <BrowserRouter>
+          <h1>¡Hola!</h1>
+          <Link to="/" className="btn btn-success">Home</Link>
+          <Link to="/formulario" className="btn btn-primary">Formulario</Link>
+          <Link to="/personas" className="btn btn-warning">Personas</Link>
+          <Link to="/componenteapi" className="btn btn-danger">API Dog</Link>
+          <Switch>
+            <Route path="/" exact render={() => {
+                return(
+                  <div>
+                    <PersonaFuncional nombre="Cynthia" apellido="Castillo" lugar="Monterrey" />
+                  </div>
+                )
+                
+              }
+            } />
+            <Route path="/formulario" exact render={() => <Formulario />} />
+            <Route path="/personas" render={(routerProps) => <ComponentePersonas {...routerProps} />} />
+            <Route path="/personas/:palabra/:color" render={(routerProps) => <ComponentePersonas {...routerProps} />} />
+            <Route path="/otrocomponente" render={() => {
+              return (
+                <OtroComponente>
+                  <ul>
+                    <li>Esta es una lista del elemento hijo</li>
+                  </ul>
+                  <p>
+                    Este es otro elemento hijo
+                  </p>
+                  <Link className="btn btn-success" to="/">Regresar a Home</Link>
+                </OtroComponente>
+              )
+            }} />
+            <Route path="/componentefuncional" render={() => <ComponenteFuncional num={10} aumento={1} />} />
+            <Route path="/componenteapi" render={()=><ComponenteAPI />} />
+          </Switch>
+        </BrowserRouter>
       </div>
     );
   }
